@@ -3,7 +3,7 @@ package com.company;
 public class Fibonacci {
     public static int valueOfIndex(int index) {
         if (index < 0){
-            throw new IllegalArgumentException("index must be greater than 0.");
+            throw new IllegalArgumentException("index must be a non-negative integer.");
         }
 
         if (index <= 1) {
