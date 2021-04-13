@@ -8,7 +8,7 @@ int main(void)
 
     printf("input an index: ");
     int scanfNumber = scanf("%f", &index);
-    while (scanfNumber == 0 || index <= 0 || (index - (int)index) != 0)
+    while (scanfNumber == 0 || index < 0 || (index - (int)index) != 0)
     {
         if (scanfNumber == 0 || (index - (int)index) != 0)
         {
@@ -16,29 +16,44 @@ int main(void)
             {
                 setbuf(stdin, NULL);
             }
-            printf("index must be an integer.\n");
+            printf("invalid index.\n");
         }
-        if (index <= 0)
+        if (index < 0)
         {
-            printf("index must be greater than 0.\n");
+            printf("index can't be less than 0.\n");
         }
         printf("input an index: ");
         scanfNumber = scanf("%f", &index);
     }
 
     int value = fibonacci((int)index);
+    if (value == -1)
+    {
+        printf("index is too big.\n");
+        return 0;
+    }
     printf("the value of index %i is %i\n", (int)index, value);
 }
 
 int fibonacci(int index)
 {
-    int value = 1;
-
-    if (index <= 2)
+    if (index <= 1)
     {
-        return value;
+        return index;
     }
 
-    value = fibonacci(index - 1) + fibonacci(index - 2);
+    int value;
+    int preOne = 1;
+    int preTwo = 0;
+    for (int i = 2; i <= index; i++)
+    {
+        value = preOne + preTwo;
+        if (value < 0)
+        {
+            return -1;
+        }
+        preTwo = preOne;
+        preOne = value;
+    }
     return value;
 }

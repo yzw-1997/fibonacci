@@ -1,17 +1,22 @@
 var input = prompt("input an index: ");
 if (validate(input)){
     var value = fibonacci(input * 1);
-    alert("the value of index " + input + " is " + value);
+    if (value === Infinity){
+        alert("index is too big.");
+    }
+    else{
+        alert("the value of index " + input + " is " + value);
+    }
 }
 
 function validate(message){
-        if (isNaN(message) || message <= 0){
-            alert("index must be positive integer.");
+        if (isNaN(message) || message < 0){
+            alert("index must be a non-negative integer.");
             return false;
         }
         for (c of message){
             if (c == "."){
-                alert("index must be positive integer.");
+                alert("index must be an integer.");
             return false;
             }
         }
@@ -19,11 +24,17 @@ function validate(message){
 }
 
 function fibonacci(index){
-    var fibonacciValue = 1;
-    if (index <= 2){
-        return fibonacciValue;
+    if (index <= 1){
+        return index;
     }
 
-    fibonacciValue = fibonacci(index - 1) + fibonacci(index - 2);
+    var fibonacciValue;
+    var preOne = 1;
+    var preTwo = 0;
+    for (let i = 2; i <= index; i++){
+        fibonacciValue = preOne + preTwo;
+        preTwo = preOne;
+        preOne = fibonacciValue;
+    }
     return fibonacciValue;
 }
